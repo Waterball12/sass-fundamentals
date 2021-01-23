@@ -1,0 +1,21 @@
+$directions: (
+    t: top,
+    b: bottom,
+    l: left,
+    r: right
+);
+
+$models: (
+    p: padding,
+    m: margin
+);
+
+@each $model, $name in $models {
+    @each $key, $value in $directions {
+        @for $i from 1 through 5 {
+            .#{$model}-#{$key}-#{$i * 5} {
+                #{$name}-#{$value}: #{$i * 5}px;    
+            } 
+        }
+    }
+}
