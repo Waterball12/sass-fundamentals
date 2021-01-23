@@ -1,3 +1,33 @@
 @mixin range-thumb() {
- 
+    &::-moz-range-thumb {
+        @content;
+    }
+    &::-ms-thumb {
+        @content;
+    }
+}
+
+@mixin range-track() {
+    &::-webkit-slider-runnable-track {
+        @content;
+    }
+
+    &::-moz-range-track {
+        @content;
+    }
+}
+
+@mixin boxShadow($primary, $secondary) {
+    box-shadow: 1px 1px 1px $primary, 0px 0px 1px $secondary;
+}
+
+@mixin fill-lower-upper($upper, $lower) {
+    &::-ms-fill-lower {
+        background: $upper;
+        @content;
+    }
+    &::-ms-fill-upper {
+        background: $lower;
+        @content;
+    }
 }
