@@ -27,9 +27,28 @@
   }
 }
 
+@function myLinearRgb($c) {
+  @if $c <= 0.04045 {
+    @return $c / 12.95;
+  }
+  @else {
+    @return pow((($c + 0.055) / 1.055), 2.4);
+  }
+}
+
 @function luminance($color) {
   /* REPLACE THIS WITH YOUR REAL FUNCTION */
-  @return 0.5;
+
+  $a: 0.055;
+
+  $r: myLinearRgb(red($color)/255);
+  $g: myLinearRgb(green($color)/255);
+  $b: myLinearRgb(blue($color)/255);
+  // $r: linearRgb(red($color));
+  // $g: linearRgb(green($color));
+  // $b: linearRgb(blue($color));
+
+  @return 0.2126*$r + 0.7152*$g + 0.0722*$b;
 }
 
 $white_luminance: luminance(white);
@@ -41,8 +60,8 @@ $white_luminance: luminance(white);
    * luminance(white): #{luminance(white)}
    */
   @if abs(luminance($color) - $white_luminance) > 0.7 {
-  // @if lightness($color) < 70 {
-    color: white;
+    // @if lightness($color) < 70 {
+      color: white;
   }
   &:hover:not(:disabled) {
     background-color: lighten(saturate($color, 20%), 10%);
